@@ -42,15 +42,24 @@ func main() {
 		chromosome: 46,
 		phone:      &phones{"Xiaomi", 1},
 	}
-	changeChromosome(&Rasul)
-
+	//Rasul.Changechromosome()
+	Rasul.Meeting(&Alena)
+	Rasul.Meeting(&Jabrik)
 	printGuest(Rasul)
 	printGuest(Jabrik)
 	printGuest(Alena)
 }
 
-func changeChromosome(chelick *guest) {
+func (chelick *guest) Changechromosome() {
 	chelick.chromosome++
+}
+
+func (meet *guest) Meeting(g *guest) {
+	if meet.chromosome == g.chromosome {
+		fmt.Println("ДА КАК ВЫ НИПАНИМАЕТЕ ОНИ ЯБУЦАЦАЦААЦАЦЦААЦА")
+	} else {
+		fmt.Println(g.name, "МЫ С ТОБОЮ НЕ ПАРА НЕ ПАРА ВОТ ТАКАЯ У НАС  СТОБОЮ ЗАПАРА ЗАПАРА")
+	}
 }
 
 func printGuest(guest guest) {
