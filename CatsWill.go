@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -8,10 +9,6 @@ import (
 type kitten struct {
 	name      string
 	autoritet string
-}
-
-type KittErr struct {
-	error string
 }
 
 func main() {
@@ -25,13 +22,27 @@ func main() {
 		go Play(kitt)
 	}
 	time.Sleep(1 * time.Second)
+	fmt.Println(checkauto(kittens[3]))
 }
 
-func checkauto(k kitten) KittErr {
-	if k.autoritet == "Loshok" {
-		return KittErr{"Kiiten cannot be Loshok"}
+type KittErr struct {
+	err error
+}
+
+func (k *KittErr) Error() string {
+	return k.err.Error()
+}
+
+func exp() error {
+	return &KittErr{
+		err: errors.New("kitten cannot be loshok"),
 	}
-	return KittErr{}
+}
+func checkauto(k kitten) error {
+	if k.autoritet == "Loshok" {
+		return exp()
+	}
+	return nil
 }
 func Play(k kitten) {
 	fmt.Println(k.name, "with autoritet", k.autoritet, "start to play")
